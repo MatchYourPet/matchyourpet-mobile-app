@@ -33,7 +33,7 @@ class SwiperState extends State<Swiper> {
       _swipeItems.add(SwipeItem(
           content: Content(text: _names[i], color: _colors[i]),
           likeAction: () {log('liked ${_names[i]}');},
-          nopeAction: () {log('liked ${_names[i]}');}));
+          nopeAction: () {log('disliked ${_names[i]}');}));
     }
 
     _matchEngine = MatchEngine(swipeItems: _swipeItems);

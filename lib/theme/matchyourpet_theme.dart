@@ -38,13 +38,13 @@ class MatchYourPetTheme {
       ),
       appBarTheme: const AppBarTheme(
         foregroundColor: Colors.white,
-        backgroundColor: Colors.black
+        backgroundColor: Color.fromRGBO(182, 44, 60, 1)
       ),
       floatingActionButtonTheme: const FloatingActionButtonThemeData(
         foregroundColor: Colors.white,
         backgroundColor: Colors.black
       ),
-      bottomNavigationBarTheme: const BottomNavigationBarThemeData(selectedItemColor: Colors.green),
+      bottomNavigationBarTheme: const BottomNavigationBarThemeData(selectedItemColor: Colors.white, backgroundColor: Color.fromRGBO(182, 44, 60, 1)),
       textTheme: lightTextTheme
     );
   }

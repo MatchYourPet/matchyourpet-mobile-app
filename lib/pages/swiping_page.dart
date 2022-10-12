@@ -7,7 +7,7 @@ class SwipingPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Swiper();
+    return const Swiper();
   }
 
 }
