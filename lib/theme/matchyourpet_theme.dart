@@ -5,8 +5,13 @@ class MatchYourPetTheme {
   static TextTheme lightTextTheme = TextTheme(
     bodyText1: GoogleFonts.montserrat(
       fontSize: 14.0,
-      fontWeight: FontWeight.w700,
+      fontWeight: FontWeight.w400,
       color: Colors.black
+    ),
+    bodyText2: GoogleFonts.montserrat(
+        fontSize: 14.0,
+        fontWeight: FontWeight.w600,
+        color: Colors.black
     ),
     headline1: GoogleFonts.zenKakuGothicAntique(
       fontSize: 32.0,
@@ -14,13 +19,18 @@ class MatchYourPetTheme {
       color: Colors.black
     ),
     headline2: GoogleFonts.zenKakuGothicAntique(
-        fontSize: 21.0,
+        fontSize: 28.0,
         fontWeight: FontWeight.w700,
         color: Colors.black
     ),
     headline3: GoogleFonts.zenKakuGothicAntique(
       fontSize: 16.0,
       fontWeight: FontWeight.w600,
+      color: Colors.black
+    ),
+    headline5: GoogleFonts.zenKakuGothicAntique(
+      fontSize: 25.0,
+      fontWeight: FontWeight.w700,
       color: Colors.black
     ),
     headline6: GoogleFonts.zenKakuGothicAntique(

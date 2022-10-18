@@ -1,7 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:matchyourpet_mobile_app/api/apiCalls/user_endpoints.dart';
+import 'package:matchyourpet_mobile_app/api/apiCalls/user_controller.dart';
 import 'package:matchyourpet_mobile_app/constants/storage_access_keys.dart';
 import 'package:matchyourpet_mobile_app/pages/home.dart';
 import 'package:matchyourpet_mobile_app/services/storage_service.dart';
@@ -20,15 +20,12 @@ class _LoginFormState extends State<LoginForm> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
-  UserEndpoints userEndpoints = UserEndpoints();
+  UserController userEndpoints = UserController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        title: const Text("Anmelden"),
-      ),
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
@@ -108,6 +105,7 @@ class _LoginFormState extends State<LoginForm> {
 
   loginAction(BuildContext context) {
     userEndpoints.loginUser(emailController.text, passwordController.text).then((value) => {
+      log(value.token),
       storageService.saveToStorage(StorageAccessKeys.jwt, value.token),
       storageService.saveToStorage(StorageAccessKeys.email, value.email),
       storageService.saveToStorage(StorageAccessKeys.adopterId, value.adopterId.toString()),
