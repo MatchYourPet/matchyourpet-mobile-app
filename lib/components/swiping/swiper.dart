@@ -71,8 +71,7 @@ class SwiperState extends State<Swiper> {
   List<SwipeItem> loadData(AsyncSnapshot<Object?> data) {
     List<Animal> values = data.data as List<Animal>;
     List<SwipeItem> swipeItems = <SwipeItem>[];
-    
-    log(values.length.toString());
+
     for (int i = 0; i < values.length; i++) {
       swipeItems.add(
           SwipeItem(

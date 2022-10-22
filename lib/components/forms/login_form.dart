@@ -105,7 +105,6 @@ class _LoginFormState extends State<LoginForm> {
 
   loginAction(BuildContext context) {
     userEndpoints.loginUser(emailController.text, passwordController.text).then((value) => {
-      log(value.token),
       storageService.saveToStorage(StorageAccessKeys.jwt, value.token),
       storageService.saveToStorage(StorageAccessKeys.email, value.email),
       storageService.saveToStorage(StorageAccessKeys.adopterId, value.adopterId.toString()),
