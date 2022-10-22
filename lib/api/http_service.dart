@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
@@ -11,14 +12,22 @@ class HttpService {
 
   static String apiUrl = 'http://api.matchyourpet.at';
 
-  Future<http.Response> post(String path, Object body) {
+  Future<http.Response> post(String path, Object body) async {
+    String? jwt = await StorageService().readSecureData(StorageAccessKeys.jwt);
+
+    Map<String,String> header = {
+      "Accept": "application/json",
+      "content-type":"application/json"
+    };
+
+    if (jwt != null) {
+      header.putIfAbsent('Authorization', () => 'Bearer $jwt');
+    }
+
     return http.post(
         Uri.parse('$apiUrl$path'),
-        body: body,
-        headers: {
-          "Accept": "application/json",
-          "content-type":"application/json"
-          });
+        body: jsonEncode(body),
+        headers: header);
   }
 
   Future<http.Response> get(String path, List<RequestParameter> params) async {

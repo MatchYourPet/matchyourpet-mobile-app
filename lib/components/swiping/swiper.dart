@@ -2,7 +2,10 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:matchyourpet_mobile_app/api/apiCalls/animal_suggestion_controller.dart';
+import 'package:matchyourpet_mobile_app/api/apiCalls/matching_controller.dart';
 import 'package:matchyourpet_mobile_app/components/swiping/animal_swiping_card.dart';
+import 'package:matchyourpet_mobile_app/constants/storage_access_keys.dart';
+import 'package:matchyourpet_mobile_app/services/storage_service.dart';
 import 'package:swipe_cards/draggable_card.dart';
 import 'package:swipe_cards/swipe_cards.dart';
 
@@ -18,6 +21,10 @@ class Swiper extends StatefulWidget {
 class SwiperState extends State<Swiper> {
 
   late final List<Animal> animals;
+
+  StorageService storageService = StorageService();
+
+  MatchingController matchingController = MatchingController();
 
   @override
   initState() {
@@ -81,11 +88,15 @@ class SwiperState extends State<Swiper> {
   }
 
   likeAction(int animalId) {
-    log('liked $animalId');
+    storageService.readSecureData(StorageAccessKeys.adopterId).then((value) =>
+        matchingController.matchAnimal(int.parse(value!), animalId)
+    );
   }
   
   dislikeAction(int animalId) {
-    log('disliked $animalId');
+    storageService.readSecureData(StorageAccessKeys.adopterId).then((value) =>
+        matchingController.notMatchAnimal(int.parse(value!), animalId)
+    );
   }
 
 }

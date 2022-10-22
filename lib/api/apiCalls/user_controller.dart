@@ -9,11 +9,12 @@ class UserController {
   HttpService httpService = HttpService();
 
   Future<UserLoginResponseDto> loginUser(String email, String password) async {
-    final response = await httpService.post('/api/user/adopter/login', json.encode(
+    final response = await httpService.post(
+        '/api/user/adopter/login',
         {
           'email': email,
           'password': password
-        }));
+        });
 
     if (response.statusCode == 200) {
       return UserLoginResponseDto.fromJson(jsonDecode(response.body));
