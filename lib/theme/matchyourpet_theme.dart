@@ -28,6 +28,11 @@ class MatchYourPetTheme {
       fontWeight: FontWeight.w600,
       color: Colors.black
     ),
+    headline4: GoogleFonts.montserrat(
+      fontSize: 17.5,
+      fontWeight: FontWeight.w500,
+      color: Colors.black
+    ),
     headline5: GoogleFonts.zenKakuGothicAntique(
       fontSize: 25.0,
       fontWeight: FontWeight.w700,

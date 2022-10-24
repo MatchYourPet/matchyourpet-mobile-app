@@ -6,7 +6,7 @@ class AnimalSwipingCard extends StatefulWidget {
 
   final Animal animal;
 
-  AnimalSwipingCard({Key? key, required this.animal}) : super(key: key);
+  const AnimalSwipingCard({Key? key, required this.animal}) : super(key: key);
 
 
   @override
