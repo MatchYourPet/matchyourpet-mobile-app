@@ -16,6 +16,10 @@ class Home extends StatefulWidget {
 
 class HomeState extends State<Home> {
 
+  refresh() {
+    setState(() {});
+  }
+
   int _selectedIndex = 1;
 
   StorageService storageService = StorageService();
@@ -33,31 +37,35 @@ class HomeState extends State<Home> {
         future: hasJwt(),
         builder: (context, data) {
           if (data.hasData) {
-            return Scaffold(
-              appBar: AppBar(
-                  title: Text(
-                      'MatchYourPet',
-                      style: Theme.of(context).textTheme.headline6),
-                  actions: getCurrentIcons()
-              ),
-              body: pages[_selectedIndex],
-              bottomNavigationBar: BottomNavigationBar(
-                selectedItemColor: Theme.of(context).textSelectionTheme.selectionColor,
-                currentIndex: _selectedIndex,
-                onTap: _onItemTapped,
-                items: const [
-                  BottomNavigationBarItem(
-                    icon: Icon(Icons.pets),
-                    label: 'Matches',
-                  ), BottomNavigationBarItem(
-                    icon: Icon(Icons.favorite),
-                    label: 'Swipen',
-                  ), BottomNavigationBarItem(
-                    icon: Icon(Icons.chat),
-                    label: 'Chat',
-                  )],
-              ),
-            );
+            if (data.data as bool) {
+              return Scaffold(
+                appBar: AppBar(
+                    title: Text(
+                        'MatchYourPet',
+                        style: Theme.of(context).textTheme.headline6),
+                    actions: getCurrentIcons()
+                ),
+                body: pages[_selectedIndex],
+                bottomNavigationBar: BottomNavigationBar(
+                  selectedItemColor: Theme.of(context).textSelectionTheme.selectionColor,
+                  currentIndex: _selectedIndex,
+                  onTap: _onItemTapped,
+                  items: const [
+                    BottomNavigationBarItem(
+                      icon: Icon(Icons.pets),
+                      label: 'Matches',
+                    ), BottomNavigationBarItem(
+                      icon: Icon(Icons.favorite),
+                      label: 'Swipen',
+                    ), BottomNavigationBarItem(
+                      icon: Icon(Icons.chat),
+                      label: 'Chat',
+                    )],
+                ),
+              );
+            } else {
+              return LoginPage(notifyParent: refresh);
+            }
           } else {
             return const Center(child: CircularProgressIndicator());
           }
@@ -66,7 +74,6 @@ class HomeState extends State<Home> {
 
   Future<bool> hasJwt() {
     Future<bool> hasJwt = storageService.containsKeyInSecureData(StorageAccessKeys.jwt);
-    checkForJwt(hasJwt);
     return hasJwt;
   }
 
@@ -91,16 +98,6 @@ class HomeState extends State<Home> {
     setState(() {
       _selectedIndex = index;
     });
-  }
-
-  void checkForJwt(Future<bool> hasJwt) {
-    hasJwt.then((value) =>
-    {if (!value) {
-      Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => const LoginPage())
-      )
-    }});
   }
 
 }

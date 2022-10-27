@@ -53,4 +53,21 @@ class HttpService {
         });
   }
 
+  Future<http.Response> delete (String path) async {
+    Map<String,String> header = {
+      "Accept": "application/json",
+      "content-type":"application/json"
+    };
+
+    String? jwt = await StorageService().readSecureData(StorageAccessKeys.jwt);
+
+    if (jwt != null) {
+      header.putIfAbsent('Authorization', () => 'Bearer $jwt');
+    }
+
+    return http.delete(
+        Uri.parse('$apiUrl$path'),
+        headers: header);
+  }
+
 }

@@ -19,8 +19,7 @@ class UserController {
     if (response.statusCode == 200) {
       return UserLoginResponseDto.fromJson(jsonDecode(response.body));
     } else {
-      log(response.statusCode.toString());
-      throw Exception('Failed to login user');
+      throw Exception('Failed to login user, ${response.statusCode}');
     }
   }
 }

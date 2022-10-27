@@ -7,7 +7,10 @@ import 'package:matchyourpet_mobile_app/pages/home.dart';
 import 'package:matchyourpet_mobile_app/services/storage_service.dart';
 
 class LoginForm extends StatefulWidget {
-  const LoginForm({Key? key}) : super(key: key);
+
+  final Function() notifyParent;
+
+  const LoginForm({Key? key, required this.notifyParent}) : super(key: key);
 
   @override
   State<LoginForm> createState() => _LoginFormState();
@@ -109,7 +112,7 @@ class _LoginFormState extends State<LoginForm> {
       storageService.saveToStorage(StorageAccessKeys.email, value.email),
       storageService.saveToStorage(StorageAccessKeys.adopterId, value.adopterId.toString()),
     });
-    Navigator.pop(context);
+    widget.notifyParent();
   }
 
 }

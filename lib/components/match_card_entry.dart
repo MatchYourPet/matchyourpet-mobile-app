@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:matchyourpet_mobile_app/api/apiCalls/matching_controller.dart';
 import 'package:matchyourpet_mobile_app/services/hex_color.dart';
 import 'package:matchyourpet_mobile_app/model/match.dart';
 
 class MatchCardEntry extends StatefulWidget {
 
   final Match match;
+  
+  final Function() notifyParent;
 
-  const MatchCardEntry({Key? key, required this.match}) : super(key: key);
+  const MatchCardEntry({Key? key, required this.match, required this.notifyParent}) : super(key: key);
 
   @override
   State<MatchCardEntry> createState() => _MatchCardEntryState();
@@ -16,6 +19,8 @@ class _MatchCardEntryState extends State<MatchCardEntry> {
 
   Color green = HexColor.fromHex('#b5fcae');
   Color red = HexColor.fromHex('#ff9999');
+
+  MatchingController matchingController = MatchingController();
 
   @override
   Widget build(BuildContext context) {
@@ -77,13 +82,17 @@ class _MatchCardEntryState extends State<MatchCardEntry> {
               icon:const Icon(
                   Icons.delete
               ),
-              onPressed:(){},
+              onPressed:(){ deleteMatch(widget.match.id, context); },
               color: Colors.black,
               iconSize:24,
             ),
           ),
         ],),
     );
+  }
+
+  void deleteMatch(int id, BuildContext context) {
+    matchingController.deleteMatch(id).then((value) => widget.notifyParent());
   }
 
 }

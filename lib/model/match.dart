@@ -22,5 +22,15 @@ class Match {
     required this.matched,
     required this.matchTime
   });
+  
+  factory Match.fromJson(Map<String, dynamic> json) {
+    return Match(
+        id: json['id'],
+        //TODO: add real adopter
+        aodopter: Adopter(),
+        animal: Animal.fromJson(json['animal']),
+        matched: json['matched'],
+        matchTime: DateTime.parse(json['matchTime']));
+  }
 
 }
