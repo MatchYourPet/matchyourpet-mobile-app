@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:matchyourpet_mobile_app/constants/storage_access_keys.dart';
+import 'package:matchyourpet_mobile_app/pages/chat_page.dart';
 import 'package:matchyourpet_mobile_app/pages/login_page.dart';
 import 'package:matchyourpet_mobile_app/pages/matches_page.dart';
 import 'package:matchyourpet_mobile_app/pages/swiping_page.dart';
@@ -25,10 +26,9 @@ class HomeState extends State<Home> {
   StorageService storageService = StorageService();
 
   static List<Widget> pages = <Widget> [
-    MatchesPage(),
+    const MatchesPage(),
     SwipingPage(),
-    // TODO Replace with Contact
-    Container(color: Colors.blue)
+    const ChatPage()
   ];
 
   @override
