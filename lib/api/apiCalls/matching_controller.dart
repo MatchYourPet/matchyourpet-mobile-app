@@ -20,7 +20,7 @@ class MatchingController {
 
   Future<List<Match>> getMatches() async {
     final adopterId = await StorageService().readSecureData(StorageAccessKeys.adopterId);
-    final response = await httpService.get('/api/adopter/$adopterId/matches', []);
+    final response = await httpService.get('/api/adopter/$adopterId/matches', [], true);
     if (response.statusCode == 200) {
       Iterable l = json.decode(utf8.decode(response.bodyBytes));
       return List<Match>.from(l.map((model)=> Match.fromJson(model)));
@@ -35,7 +35,7 @@ class MatchingController {
 
   Future<List<Shelter>> getMatchedShelters() async {
     final adopterId = await StorageService().readSecureData(StorageAccessKeys.adopterId);
-    final response = await httpService.get('/api/match/$adopterId/shelters', []);
+    final response = await httpService.get('/api/match/$adopterId/shelters', [], true);
 
     if (response.statusCode == 200) {
       Iterable l = json.decode(utf8.decode(response.bodyBytes));

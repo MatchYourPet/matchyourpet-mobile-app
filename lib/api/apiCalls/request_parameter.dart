@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 class RequestParameter {
   final String key;
   final dynamic value;
@@ -6,7 +8,7 @@ class RequestParameter {
 
   String getKeyValuePair() {
     if (value != null) {
-      return '$key=$value';
+      return '$key=${Uri.encodeComponent(value)}';
     } else {
       return '$key=';
     }

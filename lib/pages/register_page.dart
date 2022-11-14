@@ -502,7 +502,7 @@ class _RegisterPageState extends State<RegisterPage> {
             inputSurname.value.text,
             inputPassword.value.text,
             inputTelephone.value.text,
-            inputEmail.value.text,
+            inputEmail.value.text.toLowerCase(),
             inputDescription.value.text,
             DateTime.parse(inputBirthday.value.text),
             dropdownLivingSituation,
@@ -511,14 +511,23 @@ class _RegisterPageState extends State<RegisterPage> {
             int.parse(inputHouseholdSize.value.text),
             dropdownExistingAnimals);
 
-        userController.registerUser(adopter).then((value) => {
-          storageService.saveToStorage(StorageAccessKeys.jwt, value.token),
-          storageService.saveToStorage(StorageAccessKeys.email, value.email),
-          storageService.saveToStorage(StorageAccessKeys.adopterId, value.adopterId.toString()),
-          log(value.token),
-          Navigator.pop(context),
-          widget.notifyParent()
+        userController.validateEmail(inputEmail.value.text).then((value) => {
+          if (value) {
+              userController.registerUser(adopter).then((value) => {
+                storageService.saveToStorage(StorageAccessKeys.jwt, value.token),
+                storageService.saveToStorage(StorageAccessKeys.email, value.email),
+                storageService.saveToStorage(StorageAccessKeys.adopterId, value.adopterId.toString()),
+                log(value.token),
+                Navigator.pop(context),
+                widget.notifyParent()
+              })
+          } else {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(content: Text('Diese E-Mail existiert bereits!')),
+            )
+          }
         });
+
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('Datenschutzerklärung zustimmen!')),

@@ -28,7 +28,7 @@ class AnimalSuggestionController {
     params.add(RequestParameter('lon', 0));
 
 
-    final response = await httpService.get('/api/animals/suggestions', params);
+    final response = await httpService.get('/api/animals/suggestions', params, true);
     if (response.statusCode == 200) {
       Iterable l = json.decode(utf8.decode(response.bodyBytes));
       return List<Animal>.from(l.map((model)=> Animal.fromJson(model)));

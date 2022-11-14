@@ -30,7 +30,7 @@ class HttpService {
         headers: header);
   }
 
-  Future<http.Response> get(String path, List<RequestParameter> params) async {
+  Future<http.Response> get(String path, List<RequestParameter> params, bool useJwt) async {
     String requestUrl = '$apiUrl$path';
     if (params.isNotEmpty) {
       requestUrl += '?';
@@ -42,15 +42,21 @@ class HttpService {
       }
     }
 
-    String? jwt = await StorageService().readSecureData(StorageAccessKeys.jwt);
+    Map<String,String> header = {
+      "Accept": "application/json",
+      "content-type":"application/json"
+    };
+
+    if (useJwt) {
+      String? jwt = await StorageService().readSecureData(StorageAccessKeys.jwt);
+      if (jwt != null) {
+        header.putIfAbsent('Authorization', () => 'Bearer $jwt');
+      }
+    }
 
     return http.get(
         Uri.parse(requestUrl),
-        headers: {
-          "Accept": "application/json",
-          "content-type":"application/json",
-          "Authorization":"Bearer $jwt"
-        });
+        headers: header);
   }
 
   Future<http.Response> delete (String path) async {
