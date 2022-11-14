@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:matchyourpet_mobile_app/api/apiCalls/user_controller.dart';
 import 'package:matchyourpet_mobile_app/constants/storage_access_keys.dart';
 import 'package:matchyourpet_mobile_app/pages/home.dart';
+import 'package:matchyourpet_mobile_app/pages/register_page.dart';
 import 'package:matchyourpet_mobile_app/services/storage_service.dart';
 
 class LoginForm extends StatefulWidget {
@@ -35,7 +36,7 @@ class _LoginFormState extends State<LoginForm> {
             Padding(
               padding: const EdgeInsets.only(top: 60.0),
               child: Center(
-                child: Container(
+                child: SizedBox(
                     width: 200,
                     height: 150,
                     /*decoration: BoxDecoration(
@@ -94,11 +95,11 @@ class _LoginFormState extends State<LoginForm> {
               height: 130,
             ),
             TextButton(
-              onPressed: () { print('asdf'); },
+              onPressed: () { Navigator.push(context, MaterialPageRoute(builder: (context) => RegisterPage(notifyParent:  () { widget.notifyParent(); }))); },
               child: const Text(
-                'Kein Konto? Jetzt registrieren!',
-                style: TextStyle(color: Colors.blue, fontSize: 15),
-              ),
+                  'Kein Konto? Jetzt registrieren!',
+                  style: TextStyle(color: Colors.blue, fontSize: 15),
+                ),
             ),
           ],
         ),

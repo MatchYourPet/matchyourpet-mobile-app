@@ -7,8 +7,6 @@ class Match {
 
   final int id;
 
-  final Adopter aodopter;
-
   final Animal animal;
 
   final bool matched;
@@ -17,7 +15,6 @@ class Match {
 
   const Match ({
     required this.id,
-    required this.aodopter,
     required this.animal,
     required this.matched,
     required this.matchTime
@@ -26,8 +23,6 @@ class Match {
   factory Match.fromJson(Map<String, dynamic> json) {
     return Match(
         id: json['id'],
-        //TODO: add real adopter
-        aodopter: Adopter(),
         animal: Animal.fromJson(json['animal']),
         matched: json['matched'],
         matchTime: DateTime.parse(json['matchTime']));

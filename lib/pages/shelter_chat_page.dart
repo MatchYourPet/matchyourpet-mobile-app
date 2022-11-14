@@ -65,8 +65,8 @@ class _ShelterChatPageState extends State<ShelterChatPage> {
                         children: [
                           Text(
                             "${widget.shelter.street} ${widget.shelter.houseNumber}"
-                                "${widget.shelter.stair != '' ? ' /${widget.shelter.stair}' : ''}"
-                                "${widget.shelter.door != '' ? ' /${widget.shelter.door}' : ''}",
+                                "${widget.shelter.stair != '' ? '/${widget.shelter.stair}' : ''}"
+                                "${widget.shelter.door != '' ? '/${widget.shelter.door}' : ''}",
                             textAlign: TextAlign.start,
                             overflow:TextOverflow.clip,
                             style: Theme.of(context).textTheme.bodyText1,
