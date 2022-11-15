@@ -7,6 +7,8 @@ import 'package:matchyourpet_mobile_app/pages/home.dart';
 import 'package:matchyourpet_mobile_app/pages/register_page.dart';
 import 'package:matchyourpet_mobile_app/services/storage_service.dart';
 
+import '../../theme/matchyourpet_theme.dart';
+
 class LoginForm extends StatefulWidget {
 
   final Function() notifyParent;
@@ -78,19 +80,28 @@ class _LoginFormState extends State<LoginForm> {
                 style: TextStyle(color: Colors.blue, fontSize: 15),
               ),
             ),*/
-            Container(
-              height: 50,
-              width: 250,
-              decoration: BoxDecoration(
-                  color: Colors.blue, borderRadius: BorderRadius.circular(20)),
-              child: TextButton(
-                onPressed: () => {loginAction(context)},
-                child: const Text(
-                  'Login',
-                  style: TextStyle(color: Colors.white, fontSize: 25),
-                ),
+            Padding(
+              padding:const EdgeInsets.fromLTRB(35, 15, 35, 10),
+              child: Container(
+                width: 250,
+                child: MaterialButton(
+                  onPressed: () => {loginAction(context)},
+                  color: MatchYourPetTheme.matchyourpetRed,
+                  elevation:0,
+                  shape:RoundedRectangleBorder(
+                    borderRadius:BorderRadius.circular(10.0),
+                  ),
+                  padding:const EdgeInsets.all(16),
+                  textColor:const Color(0xff000000),
+                  height:40,
+                  minWidth:140,
+                  child: Text(
+                      "Anmelden",
+                      style: Theme.of(context).textTheme.headline3
+                    ),
+                  ),
               ),
-            ),
+              ),
             const SizedBox(
               height: 130,
             ),
@@ -98,7 +109,7 @@ class _LoginFormState extends State<LoginForm> {
               onPressed: () { Navigator.push(context, MaterialPageRoute(builder: (context) => RegisterPage(notifyParent:  () { widget.notifyParent(); }))); },
               child: const Text(
                   'Kein Konto? Jetzt registrieren!',
-                  style: TextStyle(color: Colors.blue, fontSize: 15),
+                  style: TextStyle(color: MatchYourPetTheme.matchyourpetRed, fontSize: 15),
                 ),
             ),
           ],

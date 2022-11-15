@@ -9,7 +9,10 @@ import 'package:matchyourpet_mobile_app/api/http_service.dart';
 import 'package:matchyourpet_mobile_app/constants/storage_access_keys.dart';
 import 'package:matchyourpet_mobile_app/model/adopter.dart';
 import 'package:matchyourpet_mobile_app/model/constants/living_situation.dart';
+import 'package:matchyourpet_mobile_app/services/hex_color.dart';
 import 'package:matchyourpet_mobile_app/services/storage_service.dart';
+import 'package:matchyourpet_mobile_app/theme/matchyourpet_theme.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../model/constants/area.dart';
 
@@ -116,7 +119,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   return null;
                 },
                 controller: inputPassword,
-                obscureText:false,
+                obscureText: true,
                 textAlign:TextAlign.start,
                 maxLines:1,
                 style:const TextStyle(
@@ -143,6 +146,9 @@ class _RegisterPageState extends State<RegisterPage> {
                   if (value == null || value.isEmpty) {
                     return 'Telefonnummer muss angegeben werden!';
                   }
+                  if (!RegExp(r"^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$").hasMatch(value)) {
+                    return 'Telefonnummer darf nur + und Zahlen enthalten';
+                  }
                   return null;
                 },
                 controller: inputTelephone,
@@ -157,7 +163,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 ),
                 decoration:const InputDecoration(
                   labelText:"Telefonnummer",
-                  hintText:"+43 1234 56789",
+                  hintText:"+43123456789",
                   filled:false,
                   fillColor:Color(0xfff2f2f3),
                   isDense:false,
@@ -244,7 +250,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 ),
                 decoration:const InputDecoration(
                   labelText:"Beschreibung",
-                  hintText:"Eingeben...",
+                  hintText:"Erzähl etwas über dich...",
                   filled:false,
                   fillColor:Color(0xfff2f2f3),
                   isDense:false,
@@ -288,7 +294,7 @@ class _RegisterPageState extends State<RegisterPage> {
               padding:const EdgeInsets.fromLTRB(5, 20, 5, 2),
               child:Container(
                 width:130,
-                height:50,
+                height:75,
                 padding:const EdgeInsets.symmetric(vertical: 4,horizontal:8),
                 child: DropdownButtonFormField(
                   decoration: const InputDecoration(
@@ -319,7 +325,7 @@ class _RegisterPageState extends State<RegisterPage> {
               padding:const EdgeInsets.fromLTRB(5, 5, 5, 2),
               child:Container(
                 width:130,
-                height:50,
+                height:75,
                 padding:const EdgeInsets.symmetric(vertical: 4,horizontal:8),
                 child: DropdownButtonFormField(
                   decoration: const InputDecoration(
@@ -350,7 +356,7 @@ class _RegisterPageState extends State<RegisterPage> {
               padding:const EdgeInsets.fromLTRB(5, 5, 5, 2),
               child:Container(
                 width:130,
-                height:50,
+                height:75,
                 padding:const EdgeInsets.symmetric(vertical: 4,horizontal:8),
                 child: DropdownButtonFormField(
                   decoration: const InputDecoration(
@@ -411,7 +417,7 @@ class _RegisterPageState extends State<RegisterPage> {
               padding:const EdgeInsets.fromLTRB(5, 5, 5, 10),
               child:Container(
                 width:130,
-                height:50,
+                height:75,
                 padding:const EdgeInsets.symmetric(vertical: 4,horizontal:8),
                 child: DropdownButtonFormField(
                   decoration: const InputDecoration(
@@ -458,13 +464,38 @@ class _RegisterPageState extends State<RegisterPage> {
                   ),
                 ),
                 const Text(
-                  "Datenschutzerklärung akzeptiert",
+                  "Ich stimme der",
                   textAlign: TextAlign.start,
                   overflow:TextOverflow.clip,
                   style:TextStyle(
                     fontWeight:FontWeight.w400,
                     fontStyle:FontStyle.normal,
-                    fontSize:14,
+                    fontSize:12,
+                    color:Color(0xff000000),
+                  ),
+                ),
+                TextButton(
+                   onPressed: () => launchUrl(Uri.parse('https://drive.google.com/file/d/1B8QA6ICuHb5phI6AJmAJh-vSmYjz2J1D/view?usp=sharing')),
+                   child: const Text(
+                     "Datenschutzerklärung",
+                     textAlign: TextAlign.start,
+                     overflow:TextOverflow.clip,
+                     style:TextStyle(
+                       fontWeight: FontWeight.w400,
+                       fontStyle: FontStyle.normal,
+                       fontSize:13,
+                       color:MatchYourPetTheme.matchyourpetRed,
+                     ),
+                   ),
+                ),
+                const Text(
+                  "zu!",
+                  textAlign: TextAlign.start,
+                  overflow:TextOverflow.clip,
+                  style:TextStyle(
+                    fontWeight:FontWeight.w400,
+                    fontStyle:FontStyle.normal,
+                    fontSize:12,
                     color:Color(0xff000000),
                   ),
                 ),
@@ -473,20 +504,19 @@ class _RegisterPageState extends State<RegisterPage> {
               padding:const EdgeInsets.fromLTRB(35, 5, 35, 10),
               child:MaterialButton(
                 onPressed:() {submit(context);},
-                color:const Color(0xff960000),
+                color: MatchYourPetTheme.matchyourpetRed,
                 elevation:0,
                 shape:RoundedRectangleBorder(
                   borderRadius:BorderRadius.circular(10.0),
-                  side:const BorderSide(color:Color(0xffff0000),width:2),
                 ),
                 padding:const EdgeInsets.all(16),
                 textColor:const Color(0xff000000),
                 height:40,
                 minWidth:140,
-                child:const Text("Jetzt registrieren", style: TextStyle( fontSize:14,
-                  fontWeight:FontWeight.w400,
-                  fontStyle:FontStyle.normal,
-                ),),
+                child: Text(
+                  "Jetzt registrieren",
+                  style: Theme.of(context).textTheme.headline3
+                ),
               ),
             ),
           ],),

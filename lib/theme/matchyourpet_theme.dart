@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class MatchYourPetTheme {
+
+  static const Color matchyourpetRed = Color.fromRGBO(182, 44, 60, 1);
+
   static TextTheme lightTextTheme = TextTheme(
     bodyText1: GoogleFonts.montserrat(
       fontSize: 14.0,
@@ -53,7 +56,7 @@ class MatchYourPetTheme {
       ),
       appBarTheme: const AppBarTheme(
         foregroundColor: Colors.white,
-        backgroundColor: Color.fromRGBO(182, 44, 60, 1)
+        backgroundColor: matchyourpetRed
       ),
       floatingActionButtonTheme: const FloatingActionButtonThemeData(
         foregroundColor: Colors.white,
