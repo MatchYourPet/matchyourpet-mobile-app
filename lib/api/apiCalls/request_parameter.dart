@@ -7,10 +7,14 @@ class RequestParameter {
   RequestParameter(this.key, this.value);
 
   String getKeyValuePair() {
-    if (value != null) {
-      return '$key=${Uri.encodeComponent(value)}';
+    if (value is bool) {
+        return '$key=$value';
+    } else if (value is String) {
+        return '$key=${Uri.encodeComponent(value)}';
+    } else if (value != null){
+        return '$key=$value';
     } else {
-      return '$key=';
+        return '$key=';
     }
   }
 

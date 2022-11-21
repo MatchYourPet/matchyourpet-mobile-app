@@ -6,7 +6,6 @@ import 'package:matchyourpet_mobile_app/api/apiCalls/matching_controller.dart';
 import 'package:matchyourpet_mobile_app/components/swiping/animal_swiping_card.dart';
 import 'package:matchyourpet_mobile_app/constants/storage_access_keys.dart';
 import 'package:matchyourpet_mobile_app/services/storage_service.dart';
-import 'package:swipe_cards/draggable_card.dart';
 import 'package:swipe_cards/swipe_cards.dart';
 
 import '../../model/animal.dart';

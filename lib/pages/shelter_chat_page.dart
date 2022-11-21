@@ -115,8 +115,7 @@ class _ShelterChatPageState extends State<ShelterChatPage> {
                     ],),
                 ],),),
           ],),),
-    )
-    ;
+    );
   }
 
   void navigateBack(BuildContext context) {

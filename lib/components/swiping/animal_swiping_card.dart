@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:matchyourpet_mobile_app/model/animal.dart';
+import 'package:matchyourpet_mobile_app/pages/animal_details_page.dart';
 import 'package:matchyourpet_mobile_app/theme/matchyourpet_theme.dart';
 
 class AnimalSwipingCard extends StatefulWidget {
@@ -17,7 +18,6 @@ class _AnimalSwipingCardState extends State<AnimalSwipingCard> {
 
   @override
   Widget build(BuildContext context) {
-    int animalId = widget.animal.id;
     return Container(
       padding: const EdgeInsets.all(16),
       constraints: const BoxConstraints.expand(
@@ -26,7 +26,7 @@ class _AnimalSwipingCardState extends State<AnimalSwipingCard> {
       ),
       decoration: BoxDecoration(
         image: DecorationImage(
-          image: NetworkImage('http://5.132.159.71:9000/animal/picture?animalId=$animalId'),
+          image: NetworkImage('http://5.132.159.71:9000/animal/picture?animalId=${widget.animal.id}'),
           fit: BoxFit.cover,
             colorFilter: ColorFilter.mode(Colors.white.withOpacity(0.3), BlendMode.srcOver)
         ),
@@ -43,7 +43,7 @@ class _AnimalSwipingCardState extends State<AnimalSwipingCard> {
               child: Text(
                 widget.animal.name,
                 style: MatchYourPetTheme.lightTextTheme.headline2,
-            )
+              )
           ),
           Positioned(
             bottom: 30,
@@ -57,12 +57,23 @@ class _AnimalSwipingCardState extends State<AnimalSwipingCard> {
             bottom: 10,
             right: 0,
             child: Text(
-              '53km entfernt',
+              '${widget.animal.distance}km entfernt',
               style: MatchYourPetTheme.lightTextTheme.bodyText1,
             )
+          ),
+          Positioned(
+            bottom: 0,
+            child: IconButton (
+              icon: const Icon(Icons.info),
+              onPressed: () {openAnimalInfoPage(context);},
+            ),
           )
         ],
       ),
     );
+  }
+
+  void openAnimalInfoPage(BuildContext context) {
+    Navigator.push(context, MaterialPageRoute(builder: (context) => AnimalDetailPage(animal: widget.animal)));
   }
 }

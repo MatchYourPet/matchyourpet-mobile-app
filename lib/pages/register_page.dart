@@ -502,7 +502,7 @@ class _RegisterPageState extends State<RegisterPage> {
               ],),
             Padding(
               padding:const EdgeInsets.fromLTRB(35, 5, 35, 10),
-              child:MaterialButton(
+              child: MaterialButton(
                 onPressed:() {submit(context);},
                 color: MatchYourPetTheme.matchyourpetRed,
                 elevation:0,

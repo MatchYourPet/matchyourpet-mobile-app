@@ -3,7 +3,6 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:matchyourpet_mobile_app/api/apiCalls/user_controller.dart';
 import 'package:matchyourpet_mobile_app/constants/storage_access_keys.dart';
-import 'package:matchyourpet_mobile_app/pages/home.dart';
 import 'package:matchyourpet_mobile_app/pages/register_page.dart';
 import 'package:matchyourpet_mobile_app/services/storage_service.dart';
 
