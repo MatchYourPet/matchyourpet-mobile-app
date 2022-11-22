@@ -53,7 +53,7 @@ class HttpService {
         header.putIfAbsent('Authorization', () => 'Bearer $jwt');
       }
     }
-
+    log(requestUrl);
     return http.get(
         Uri.parse(requestUrl),
         headers: header);

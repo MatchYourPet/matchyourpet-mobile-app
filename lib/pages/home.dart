@@ -1,8 +1,11 @@
+import 'dart:convert';
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:matchyourpet_mobile_app/constants/storage_access_keys.dart';
+import 'package:matchyourpet_mobile_app/model/filter_params.dart';
 import 'package:matchyourpet_mobile_app/pages/chat_page.dart';
+import 'package:matchyourpet_mobile_app/pages/filter_page.dart';
 import 'package:matchyourpet_mobile_app/pages/login_page.dart';
 import 'package:matchyourpet_mobile_app/pages/matches_page.dart';
 import 'package:matchyourpet_mobile_app/pages/swiping_page.dart';
@@ -82,7 +85,7 @@ class HomeState extends State<Home> {
       return [
         IconButton(
           icon: const Icon(Icons.filter_alt),
-          onPressed: () {},
+          onPressed: () {openFilterPage();},
         ),
         IconButton(
           icon: const Icon(Icons.supervised_user_circle),
@@ -98,6 +101,19 @@ class HomeState extends State<Home> {
     setState(() {
       _selectedIndex = index;
     });
+  }
+
+  void openFilterPage() async{
+    FilterParams filterParams;
+    if (await StorageService().containsKeyInSecureData(StorageAccessKeys.filterParams)) {
+      StorageService().readSecureData(StorageAccessKeys.filterParams).then((value) => {
+        filterParams = FilterParams.fromJson(jsonDecode(value!)),
+        Navigator.push(context, MaterialPageRoute(builder: (context) => FilterPage(filterParams: filterParams)))
+      }
+      );
+    } else {
+      Navigator.push(context, MaterialPageRoute(builder: (context) => FilterPage(filterParams: FilterParams.getEmpty())));
+    }
   }
 
 }

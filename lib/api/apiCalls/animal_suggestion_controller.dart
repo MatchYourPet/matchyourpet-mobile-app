@@ -3,7 +3,10 @@ import 'dart:developer';
 
 import 'package:matchyourpet_mobile_app/api/apiCalls/request_parameter.dart';
 import 'package:matchyourpet_mobile_app/api/http_service.dart';
+import 'package:matchyourpet_mobile_app/constants/storage_access_keys.dart';
 import 'package:matchyourpet_mobile_app/model/animal.dart';
+import 'package:matchyourpet_mobile_app/model/filter_params.dart';
+import 'package:matchyourpet_mobile_app/services/storage_service.dart';
 
 class AnimalSuggestionController {
 
@@ -12,18 +15,25 @@ class AnimalSuggestionController {
 
   Future<List<Animal>> suggestAnimals() async {
     List<RequestParameter> params = [];
+    FilterParams filterParams = FilterParams.getEmpty();
 
-    params.add(RequestParameter('minBirthYear', null));
-    params.add(RequestParameter('maxBirthYear', null));
-    params.add(RequestParameter('wantCoreVaccines', false));
-    params.add(RequestParameter('breedId', null));
-    params.add(RequestParameter('gender', null));
-    params.add(RequestParameter('maximumPrice', null));
-    params.add(RequestParameter('maximumPrice', null));
-    params.add(RequestParameter('wantsHouseTrained', false));
-    params.add(RequestParameter('livingSituation', null));
-    params.add(RequestParameter('livesInApartment', false));
-    params.add(RequestParameter('maximumDistance', 0));
+    if (await StorageService().containsKeyInSecureData(StorageAccessKeys.filterParams)) {
+      String json = await StorageService().readSecureData(StorageAccessKeys.filterParams) ?? FilterParams.getEmpty().JsonStringValue();
+      filterParams = FilterParams.fromJson(jsonDecode(json));
+    }
+
+    params.add(RequestParameter('minBirthYear', filterParams.minAge));
+    params.add(RequestParameter('maxBirthYear', filterParams.maxAge));
+    params.add(RequestParameter('wantCoreVaccines', filterParams.shouldHaveCoreVaccines));
+    params.add(RequestParameter('animalTypeId', filterParams.preferredAnimalType != null ? filterParams.preferredAnimalType!.id : null));
+    params.add(RequestParameter('breedId', filterParams.preferredAnimalBreed != null ? filterParams.preferredAnimalBreed!.id : null));
+    params.add(RequestParameter('gender', filterParams.preferredGender));
+    params.add(RequestParameter('maximumPrice', filterParams.maxPrice));
+    params.add(RequestParameter('wantsHouseTrained', filterParams.shouldBeHousetrained));
+
+    //geändert: apartment only, living situation weg
+    params.add(RequestParameter('apartmentOnlyAnimal', filterParams.apartmentOnlyAnimal));
+    params.add(RequestParameter('maximumDistance', filterParams.maxDistance));
     params.add(RequestParameter('lat', 0));
     params.add(RequestParameter('lon', 0));
 
