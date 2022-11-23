@@ -16,7 +16,9 @@ class LoginPage extends StatefulWidget {
 class LoginState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
-    return LoginForm(notifyParent: () { widget.notifyParent(); });
+    return LoginForm(notifyParent: () {
+      widget.notifyParent();
+    });
   }
 
 }

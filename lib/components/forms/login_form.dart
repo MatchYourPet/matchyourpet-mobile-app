@@ -119,11 +119,10 @@ class _LoginFormState extends State<LoginForm> {
 
   loginAction(BuildContext context) {
     userEndpoints.loginUser(emailController.text, passwordController.text).then((value) => {
-      storageService.saveToStorage(StorageAccessKeys.jwt, value.token),
       storageService.saveToStorage(StorageAccessKeys.email, value.email),
       storageService.saveToStorage(StorageAccessKeys.adopterId, value.adopterId.toString()),
+      storageService.saveToStorage(StorageAccessKeys.jwt, value.token).then((value) => {widget.notifyParent()}),
     });
-    widget.notifyParent();
   }
 
 }

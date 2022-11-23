@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:developer';
+import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 import 'package:matchyourpet_mobile_app/constants/storage_access_keys.dart';
@@ -8,6 +9,7 @@ import 'package:matchyourpet_mobile_app/pages/chat_page.dart';
 import 'package:matchyourpet_mobile_app/pages/filter_page.dart';
 import 'package:matchyourpet_mobile_app/pages/login_page.dart';
 import 'package:matchyourpet_mobile_app/pages/matches_page.dart';
+import 'package:matchyourpet_mobile_app/pages/profile_edit_page.dart';
 import 'package:matchyourpet_mobile_app/pages/swiping_page.dart';
 import 'package:matchyourpet_mobile_app/services/storage_service.dart';
 
@@ -89,7 +91,7 @@ class HomeState extends State<Home> {
         ),
         IconButton(
           icon: const Icon(Icons.supervised_user_circle),
-          onPressed: () {},
+          onPressed: () {openProfileSettingsPage();},
         ),
       ];
     } else {
@@ -108,12 +110,16 @@ class HomeState extends State<Home> {
     if (await StorageService().containsKeyInSecureData(StorageAccessKeys.filterParams)) {
       StorageService().readSecureData(StorageAccessKeys.filterParams).then((value) => {
         filterParams = FilterParams.fromJson(jsonDecode(value!)),
-        Navigator.push(context, MaterialPageRoute(builder: (context) => FilterPage(filterParams: filterParams)))
+        Navigator.push(context, MaterialPageRoute(builder: (context) => FilterPage(notifyParent: refresh, filterParams: filterParams)))
       }
       );
     } else {
-      Navigator.push(context, MaterialPageRoute(builder: (context) => FilterPage(filterParams: FilterParams.getEmpty())));
+      Navigator.push(context, MaterialPageRoute(builder: (context) => FilterPage(notifyParent: refresh, filterParams: FilterParams.getEmpty())));
     }
+  }
+
+  void openProfileSettingsPage() {
+    Navigator.push(context, MaterialPageRoute(builder: (context) => ProfileEditPage(notifyParent: refresh)));
   }
 
 }

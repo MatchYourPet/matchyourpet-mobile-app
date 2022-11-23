@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:matchyourpet_mobile_app/api/apiCalls/animal_type_controller.dart';
 import 'package:matchyourpet_mobile_app/api/apiCalls/breed_controller.dart';
@@ -14,8 +12,9 @@ import 'package:matchyourpet_mobile_app/theme/matchyourpet_theme.dart';
 class FilterPage extends StatefulWidget {
 
   final FilterParams filterParams;
+  final Function() notifyParent;
 
-  const FilterPage({Key? key, required this.filterParams}) : super(key: key);
+  const FilterPage({Key? key, required this.filterParams, required this.notifyParent}) : super(key: key);
 
 
   @override
@@ -60,7 +59,9 @@ class _FilterPageState extends State<FilterPage> {
                 ),
                 leading: IconButton(
                     icon: const Icon(Icons.arrow_back),
-                    onPressed: () => {Navigator.pop(context)}
+                    onPressed: () => {
+                      Navigator.pop(context),
+                      widget.notifyParent()}
                 ),
               ),
               body:
@@ -413,6 +414,8 @@ class _FilterPageState extends State<FilterPage> {
       StorageService().saveToStorage(
           StorageAccessKeys.filterParams,
           filterParams);
+      Navigator.pop(context);
+      widget.notifyParent();
     }
   }
 
@@ -434,7 +437,10 @@ class _FilterPageState extends State<FilterPage> {
       inputMaxDistance = TextEditingController(),
       widget.filterParams.maxDistance = null,
       animalTypes = [],
-      breeds = []
+      breeds = [],
+      StorageService().saveToStorage(
+      StorageAccessKeys.filterParams,
+      widget.filterParams.JsonStringValue())
     });
   }
 
