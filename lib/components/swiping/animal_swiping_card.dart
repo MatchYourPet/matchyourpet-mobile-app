@@ -57,7 +57,7 @@ class _AnimalSwipingCardState extends State<AnimalSwipingCard> {
             bottom: 10,
             right: 0,
             child: Text(
-              '${widget.animal.distance}km entfernt',
+              'aus ${widget.animal.shelter.city}',
               style: MatchYourPetTheme.lightTextTheme.bodyText1,
             )
           ),

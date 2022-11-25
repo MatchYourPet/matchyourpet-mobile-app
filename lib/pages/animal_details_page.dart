@@ -169,7 +169,7 @@ class _AnimalDetailPageState extends State<AnimalDetailPage> {
                           style: Theme.of(context).textTheme.bodyText1,
                         ),
                         Text(
-                          "${widget.animal.shelter.postalCode}, ${widget.animal.shelter.city} (${widget.animal.distance}km)",
+                          "${widget.animal.shelter.postalCode}, ${widget.animal.shelter.city}",
                           textAlign: TextAlign.start,
                           overflow:TextOverflow.clip,
                           style: Theme.of(context).textTheme.bodyText1,

@@ -20,7 +20,6 @@ class Animal {
   final bool garden;
   final bool housetrained;
   final LivingSituation requiredLivingSituation;
-  final int distance;
 
   const Animal({
     required this.id,
@@ -37,8 +36,7 @@ class Animal {
     required this.apartment,
     required this.garden,
     required this.housetrained,
-    required this.requiredLivingSituation,
-    required this.distance});
+    required this.requiredLivingSituation});
 
   factory Animal.fromJson(Map<String, dynamic> json) {
     dynamic shelter = Shelter.fromJson(json['shelter']);
@@ -59,8 +57,7 @@ class Animal {
         apartment: json['apartment'],
         garden: json['garden'],
         housetrained: json['housetrained'],
-        requiredLivingSituation: LivingSituation.getByString(json['requiredLivingSituation']),
-        distance: 55
+        requiredLivingSituation: LivingSituation.getByString(json['requiredLivingSituation'])
     );
     return animal;
   }

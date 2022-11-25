@@ -22,8 +22,8 @@ class AnimalSuggestionController {
       filterParams = FilterParams.fromJson(jsonDecode(json));
     }
 
-    params.add(RequestParameter('minBirthYear', filterParams.minAge));
-    params.add(RequestParameter('maxBirthYear', filterParams.maxAge));
+    params.add(RequestParameter('minAge', filterParams.minAge));
+    params.add(RequestParameter('maxAge', filterParams.maxAge));
     params.add(RequestParameter('wantCoreVaccines', filterParams.shouldHaveCoreVaccines));
     params.add(RequestParameter('animalTypeId', filterParams.preferredAnimalType != null ? filterParams.preferredAnimalType!.id : null));
     params.add(RequestParameter('breedId', filterParams.preferredAnimalBreed != null ? filterParams.preferredAnimalBreed!.id : null));
@@ -38,7 +38,9 @@ class AnimalSuggestionController {
     params.add(RequestParameter('lon', 0));
 
 
-    final response = await httpService.get('/api/animals/suggestions', params, true);
+    String? adopterId = await StorageService().readSecureData(StorageAccessKeys.adopterId);
+
+    final response = await httpService.get('/api/adopter/${adopterId!}/suggestions', params, true);
     if (response.statusCode == 200) {
       Iterable l = json.decode(utf8.decode(response.bodyBytes));
       return List<Animal>.from(l.map((model)=> Animal.fromJson(model)));
