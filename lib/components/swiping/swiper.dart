@@ -35,14 +35,12 @@ class SwiperState extends State<Swiper> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-        future: AnimalSuggestionController().suggestAnimals(),
+        future: AnimalSuggestionController().suggestAnimals(context),
         builder: (context, data) {
           if (data.hasData) {
             List<SwipeItem>? swipeItems = loadData(data);
-            MatchEngine matchEngine = MatchEngine(swipeItems: swipeItems);
-            if (swipeItems == null) {
-              return Center(child: const Text('Zugriff auf Standort benötigt!'));
-            } else if (swipeItems.isNotEmpty) {
+            MatchEngine matchEngine = MatchEngine(swipeItems: swipeItems!);
+            if (swipeItems.isNotEmpty) {
               return SwipeCards(
                 matchEngine: matchEngine,
                 itemBuilder: (BuildContext context, int index) {
