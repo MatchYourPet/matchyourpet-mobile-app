@@ -426,7 +426,9 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
               ),
             );
           } else {
-            return const CircularProgressIndicator();
+            return const Scaffold(
+                body: Center(child: CircularProgressIndicator()),
+                backgroundColor: Colors.white,);
           }
         }
         );
