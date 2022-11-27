@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:matchyourpet_mobile_app/api/apiCalls/user_controller.dart';
 import 'package:matchyourpet_mobile_app/api/http_service.dart';
 import 'package:matchyourpet_mobile_app/constants/storage_access_keys.dart';
-import 'package:matchyourpet_mobile_app/model/adopter.dart';
+import 'package:matchyourpet_mobile_app/model/adopter_dto.dart';
 import 'package:matchyourpet_mobile_app/model/constants/living_situation.dart';
 import 'package:matchyourpet_mobile_app/services/hex_color.dart';
 import 'package:matchyourpet_mobile_app/services/storage_service.dart';
@@ -527,7 +527,7 @@ class _RegisterPageState extends State<RegisterPage> {
   submit(BuildContext context) {
     if (_formKey.currentState!.validate()) {
       if (privacyPolicy) {
-        Adopter adopter = Adopter(0,
+        AdopterDto adopter = AdopterDto(0,
             inputFirstname.value.text,
             inputSurname.value.text,
             inputPassword.value.text,

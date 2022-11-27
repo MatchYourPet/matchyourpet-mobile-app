@@ -413,9 +413,10 @@ class _FilterPageState extends State<FilterPage> {
 
       StorageService().saveToStorage(
           StorageAccessKeys.filterParams,
-          filterParams);
-      Navigator.pop(context);
-      widget.notifyParent();
+          filterParams).then((value) => {
+            Navigator.pop(context),
+            widget.notifyParent()
+      });
     }
   }
 

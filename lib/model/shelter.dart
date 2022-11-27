@@ -21,6 +21,8 @@ class Shelter {
 
   String contactPersonName;
 
+  int distanceToAdopter;
+
   Shelter({
     required this.id,
     required this.name,
@@ -32,7 +34,8 @@ class Shelter {
     required this.door,
     required this.stair,
     required this.telephone,
-    required this.contactPersonName});
+    required this.contactPersonName,
+    required this.distanceToAdopter});
 
   factory Shelter.fromJson(Map<String, dynamic> json) {
     return Shelter(
@@ -46,7 +49,8 @@ class Shelter {
         telephone: json['telephone'],
         contactPersonName: json['contactPersonName'],
         houseNumber: json['houseNumber'],
-        city: json['city']
+        city: json['city'],
+        distanceToAdopter: json['distanceToAdopter']
     );
   }
 }

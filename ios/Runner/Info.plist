@@ -45,5 +45,8 @@
 	<false/>
 	<key>CADisableMinimumFrameDurationOnPhone</key>
 	<true/>
+
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Dein Standort wird benötigt, um passende Tiere in deiner Nähe zu finden. Ohne Standordzugriff kann die App nicht verwendet werden</string>
 </dict>
 </plist>

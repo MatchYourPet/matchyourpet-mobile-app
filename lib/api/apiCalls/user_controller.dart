@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:matchyourpet_mobile_app/api/apiCalls/request_parameter.dart';
 import 'package:matchyourpet_mobile_app/api/dto/user_login_response_dto.dart';
 import 'package:matchyourpet_mobile_app/api/http_service.dart';
-import 'package:matchyourpet_mobile_app/model/adopter.dart';
+import 'package:matchyourpet_mobile_app/model/adopter_dto.dart';
 
 class UserController {
 
@@ -24,7 +24,7 @@ class UserController {
     }
   }
 
-  Future<UserLoginResponseDto> registerUser(Adopter adopter) async{
+  Future<UserLoginResponseDto> registerUser(AdopterDto adopter) async{
     final response = await httpService.post(
         '/api/user/adopter/register',
         adopter.toJson());

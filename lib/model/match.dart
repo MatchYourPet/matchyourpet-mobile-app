@@ -1,7 +1,7 @@
 import 'package:matchyourpet_mobile_app/model/animal.dart';
 import 'package:matchyourpet_mobile_app/model/shelter.dart';
 
-import 'adopter.dart';
+import 'adopter_dto.dart';
 
 class Match {
 

@@ -30,6 +30,24 @@ class HttpService {
         headers: header);
   }
 
+  Future<http.Response> put(String path, Object body) async {
+    String? jwt = await StorageService().readSecureData(StorageAccessKeys.jwt);
+
+    Map<String,String> header = {
+      "Accept": "application/json",
+      "content-type":"application/json"
+    };
+
+    if (jwt != null) {
+      header.putIfAbsent('Authorization', () => 'Bearer $jwt');
+    }
+
+    return http.put(
+        Uri.parse('$apiUrl$path'),
+        body: jsonEncode(body),
+        headers: header);
+  }
+
   Future<http.Response> get(String path, List<RequestParameter> params, bool useJwt) async {
     String requestUrl = '$apiUrl$path';
     if (params.isNotEmpty) {

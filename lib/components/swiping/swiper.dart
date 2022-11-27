@@ -38,10 +38,11 @@ class SwiperState extends State<Swiper> {
         future: AnimalSuggestionController().suggestAnimals(),
         builder: (context, data) {
           if (data.hasData) {
-            List<SwipeItem> swipeItems = loadData(data);
+            List<SwipeItem>? swipeItems = loadData(data);
             MatchEngine matchEngine = MatchEngine(swipeItems: swipeItems);
-            
-            if (swipeItems.isNotEmpty) {
+            if (swipeItems == null) {
+              return Center(child: const Text('Zugriff auf Standort benötigt!'));
+            } else if (swipeItems.isNotEmpty) {
               return SwipeCards(
                 matchEngine: matchEngine,
                 itemBuilder: (BuildContext context, int index) {
@@ -59,7 +60,7 @@ class SwiperState extends State<Swiper> {
                 fillSpace: true,
               );
             } else {
-              return const Text('Leider keine Tiere gefunden');
+              return const Center(child: Text('Leider keine passenden Tiere gefunden :('));
             }
           } else {
             return const Center(child: CircularProgressIndicator());
@@ -67,7 +68,11 @@ class SwiperState extends State<Swiper> {
         });
   }
 
-  List<SwipeItem> loadData(AsyncSnapshot<Object?> data) {
+  List<SwipeItem>? loadData(AsyncSnapshot<Object?> data) {
+    if (data.data == null) {
+      return null;
+    }
+
     List<Animal> values = data.data as List<Animal>;
     List<SwipeItem> swipeItems = <SwipeItem>[];
 

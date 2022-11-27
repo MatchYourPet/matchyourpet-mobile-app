@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:matchyourpet_mobile_app/api/apiCalls/adopter_controller.dart';
 import 'package:matchyourpet_mobile_app/constants/storage_access_keys.dart';
-import 'package:matchyourpet_mobile_app/model/adopter.dart';
 import 'package:matchyourpet_mobile_app/model/constants/area.dart';
 import 'package:matchyourpet_mobile_app/model/constants/living_situation.dart';
 import 'package:matchyourpet_mobile_app/services/storage_service.dart';
 import 'package:matchyourpet_mobile_app/services/user_service.dart';
 
+import '../model/adopter.dart';
 import '../theme/matchyourpet_theme.dart';
 
 class ProfileEditPage extends StatefulWidget {
@@ -22,6 +23,8 @@ class ProfileEditPage extends StatefulWidget {
 class _ProfileEditPageState extends State<ProfileEditPage> {
 
   final _formKey = GlobalKey<FormState>();
+  
+  late Adopter adopter;
 
   LivingSituation dropdownLivingSituation = LivingSituation.getAll().first;
   Area dropdownRegion = Area.getAll().first;
@@ -53,6 +56,7 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
             inputDescription.text = adopter.description;
             inputBirthday.text = DateFormat('yyyy-MM-dd').format(adopter.birthday);
             inputHouseholdSize.text= adopter.householdSize.toString();
+            this.adopter = adopter;
 
             return Form(
               key: _formKey,
@@ -430,12 +434,25 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
 
   Future<Adopter> getAdopter () async {
     int adopterId = int.parse(await StorageService().readSecureData(StorageAccessKeys.adopterId) as String);
-    return Future.value(Adopter(adopterId, "Max", "Mustermann", "asdfasdfasdf", "06606792345", "schlager.georg@gmail.com", "Nett", DateTime.parse("2004-01-18"), LivingSituation.FLAT, Area.CITY, true, 55, false));
+    return AdopterController().loadAdopterById(adopterId);
   }
 
   void save() {
     if (_formKey.currentState!.validate()) {
-      Navigator.pop(context);
+      Adopter adopter = Adopter(0,
+          inputFirstname.text,
+          inputSurname.text,
+          inputTelephone.text,
+          this.adopter.userEmail,
+          inputDescription.text,
+          DateTime.parse(inputBirthday.text),
+          dropdownLivingSituation,
+          dropdownRegion,
+          dropdownGarden,
+          int.parse(inputHouseholdSize.text),
+          dropdownExistingAnimals);
+      AdopterController().saveAdopter(adopter)
+          .then((value) => {Navigator.pop(context)});
     }
   }
 
