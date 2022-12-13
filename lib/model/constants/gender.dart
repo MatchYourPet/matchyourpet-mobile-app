@@ -1,11 +1,13 @@
 enum Gender {
-  MALE(germanValue: 'Männlich'),
-  FEMALE(germanValue: 'Weiblich'),
-  UNKNOWN(germanValue: 'Unbekannt');
+  MALE(germanValue: 'Männlich', stringValue: 'MALE'),
+  FEMALE(germanValue: 'Weiblich', stringValue: 'FEMALE'),
+  UNKNOWN(germanValue: 'Unbekannt', stringValue: 'UNKOWN');
 
   final String germanValue;
 
-  const Gender({required this.germanValue});
+  final String stringValue;
+
+  const Gender({required this.germanValue, required this.stringValue});
 
   static getByString(String string) {
     if (string == "null") {

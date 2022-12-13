@@ -39,7 +39,7 @@ class AnimalSuggestionController {
     params.add(RequestParameter('wantCoreVaccines', filterParams.shouldHaveCoreVaccines));
     params.add(RequestParameter('animalTypeId', filterParams.preferredAnimalType != null ? filterParams.preferredAnimalType!.id : null));
     params.add(RequestParameter('breedId', filterParams.preferredAnimalBreed != null ? filterParams.preferredAnimalBreed!.id : null));
-    params.add(RequestParameter('gender', filterParams.preferredGender));
+    params.add(RequestParameter('gender', filterParams.preferredGender != null ? filterParams.preferredGender!.stringValue : null));
     params.add(RequestParameter('maximumPrice', filterParams.maxPrice));
     params.add(RequestParameter('wantsHouseTrained', filterParams.shouldBeHousetrained));
     params.add(RequestParameter('apartmentOnlyAnimal', filterParams.apartmentOnlyAnimal));
