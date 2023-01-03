@@ -10,7 +10,7 @@ import 'apiCalls/request_parameter.dart';
 
 class HttpService {
 
-  static String apiUrl = 'http://api.matchyourpet.at';
+  static String apiUrl = 'http://194.15.36.67:9000';
 
   Future<http.Response> post(String path, Object body) async {
     String? jwt = await StorageService().readSecureData(StorageAccessKeys.jwt);

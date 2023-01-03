@@ -26,7 +26,7 @@ class _AnimalSwipingCardState extends State<AnimalSwipingCard> {
       ),
       decoration: BoxDecoration(
         image: DecorationImage(
-          image: NetworkImage('http://5.132.159.71:9000/animal/picture?animalId=${widget.animal.id}'),
+          image: NetworkImage('http://194.15.36.67:9000/animal/picture?animalId=${widget.animal.id}'),
           fit: BoxFit.cover,
             colorFilter: ColorFilter.mode(Colors.white.withOpacity(0.3), BlendMode.srcOver)
         ),
@@ -74,6 +74,6 @@ class _AnimalSwipingCardState extends State<AnimalSwipingCard> {
   }
 
   void openAnimalInfoPage(BuildContext context) {
-    Navigator.push(context, MaterialPageRoute(builder: (context) => AnimalDetailPage(animal: widget.animal)));
+    Navigator.push(context, MaterialPageRoute(builder: (context) => AnimalDetailPage(animal: widget.animal, isSwiping: true,)));
   }
 }

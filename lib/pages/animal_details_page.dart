@@ -9,7 +9,9 @@ class AnimalDetailPage extends StatefulWidget {
 
   final Animal animal;
 
-  const AnimalDetailPage({Key? key, required this.animal}) : super(key: key);
+  final isSwiping;
+
+  const AnimalDetailPage({Key? key, required this.animal, required this.isSwiping}) : super(key: key);
 }
 
 class _AnimalDetailPageState extends State<AnimalDetailPage> {
@@ -52,7 +54,7 @@ class _AnimalDetailPageState extends State<AnimalDetailPage> {
           ),
           decoration: BoxDecoration(
               image: DecorationImage(
-                  image: NetworkImage("http://5.132.159.71:9000/animal/picture?animalId=${widget.animal.id}"),
+                  image: NetworkImage("http://194.15.36.67:9000/animal/picture?animalId=${widget.animal.id}"),
                   fit: BoxFit.cover
               ),
               borderRadius: const BorderRadius.all(Radius.circular(10.0))
@@ -185,26 +187,33 @@ class _AnimalDetailPageState extends State<AnimalDetailPage> {
                   ],
                 ),
               ),
-              Center(
-                child:  MaterialButton(
-                  onPressed:() {openShelterInfoPage(context);},
-                  color: MatchYourPetTheme.matchyourpetRed,
-                  elevation:0,
-                  shape:RoundedRectangleBorder(
-                    borderRadius:BorderRadius.circular(10.0),
-                  ),
-                  padding:const EdgeInsets.all(16),
-                  textColor:const Color(0xff000000),
-                  height:40,
-                  minWidth:140,
-                  child: Text(
-                      "Tierheim kontaktieren",
-                      style: Theme.of(context).textTheme.headline3
-                  ),
-                ),
-              )
+              generateButton(context)
             ])),
     ]));
+  }
+
+  Widget generateButton(BuildContext context) {
+    if (widget.isSwiping) {
+      return Container();
+    }
+    return Center(
+              child:  MaterialButton(
+                onPressed:() {openShelterInfoPage(context);},
+                color: MatchYourPetTheme.matchyourpetRed,
+                elevation:0,
+                shape:RoundedRectangleBorder(
+                  borderRadius:BorderRadius.circular(10.0),
+                ),
+                padding:const EdgeInsets.all(16),
+                textColor:const Color(0xff000000),
+                height:40,
+                minWidth:140,
+                child: Text(
+                    "Tierheim kontaktieren",
+                    style: Theme.of(context).textTheme.headline3
+                ),
+              ),
+            );
   }
 
   void navigateBack(BuildContext context) {

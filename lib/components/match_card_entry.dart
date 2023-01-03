@@ -54,7 +54,7 @@ class _MatchCardEntryState extends State<MatchCardEntry> {
                   shape: BoxShape.circle,
                 ),
                 child:Image.network(
-                    'http://5.132.159.71:9000/animal/picture?animalId=${widget.match.animal.id}',
+                    'http://194.15.36.67:9000/animal/picture?animalId=${widget.match.animal.id}',
                     fit:BoxFit.cover),
               ),
             ),
@@ -101,7 +101,7 @@ class _MatchCardEntryState extends State<MatchCardEntry> {
   }
 
     void openAnimalInfoPage(BuildContext context) {
-      Navigator.push(context, MaterialPageRoute(builder: (context) => AnimalDetailPage(animal: widget.match.animal)));
+      Navigator.push(context, MaterialPageRoute(builder: (context) => AnimalDetailPage(animal: widget.match.animal, isSwiping: false,)));
     }
 
 }
