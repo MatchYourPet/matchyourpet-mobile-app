@@ -256,9 +256,7 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                           elevation:8,
                           isExpanded: true,
                           onChanged: (Area? value) {
-                            setState(() {
-                              dropdownRegion = value!;
-                            });
+                            dropdownRegion = value!;
                           },
                         ),
                       ),
@@ -287,9 +285,7 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                           elevation:8,
                           isExpanded: true,
                           onChanged: (LivingSituation? value) {
-                            setState(() {
                               dropdownLivingSituation = value!;
-                            });
                           },
                         ),
                       ),
@@ -315,9 +311,7 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                           fontWeight:FontWeight.w400,
                           fontStyle:FontStyle.normal,
                         ), onChanged: (bool? value){
-                          setState(() {
                             dropdownGarden = value!;
-                          });
                         },
                           elevation:8,
                           isExpanded: true,),
@@ -376,9 +370,7 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                           fontWeight:FontWeight.w400,
                           fontStyle:FontStyle.normal,
                         ), onChanged: (bool? value){
-                          setState(() {
                             dropdownExistingAnimals = value!;
-                          });
                         },
                           elevation:8,
                           isExpanded: true,),
